@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { ProductsApi } from '../../services/products-api';
 import { ProductListResponse } from "../../models/product-list-response";
 import { ProductDetails } from '../product-details/product-details';
+import { CartService } from '../../../cart/services/cart';
 
 declare var bootstrap: any;
 
@@ -19,7 +20,7 @@ export class ProductsList implements OnInit, OnDestroy {
 
   private _productApi = inject(ProductsApi);
   private _subscription = new Subscription();   // ✅ stores all subscriptions
-
+  private cart = inject(CartService);
   protected readonly title: string = "";
   protected product: ProductListResponse;
   protected selectedProductId: string;
@@ -27,6 +28,12 @@ export class ProductsList implements OnInit, OnDestroy {
 
   protected currentPage: number = 1;
   protected totalPages: number = 1;
+
+    addToCart(p: any) {
+    this.cart.addToCart(p);
+    // user feedback — toast/alert
+    alert(`${p.name} added to cart`);
+  }
 
   // ✅ Subscribe when component loads
   ngOnInit(): void {
@@ -39,6 +46,7 @@ export class ProductsList implements OnInit, OnDestroy {
       this._subscription.unsubscribe();
       console.log("Unsubscribed from all product subscriptions.");
     }
+    
   }
 
   // ✅ Store the subscription reference inside `_subscription`

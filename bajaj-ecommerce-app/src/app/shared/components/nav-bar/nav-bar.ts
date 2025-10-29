@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component,inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from "@angular/router";
+import { Router, RouterModule,NavigationStart } from "@angular/router";
 import { Login } from '../../../features/security/components/login/login';
+import { SecurityApi } from '../../../features/security/services/securirty-api';
 @Component({
   selector: 'bajaj-nav-bar',
   imports: [RouterModule],
@@ -9,5 +10,27 @@ import { Login } from '../../../features/security/components/login/login';
   styleUrl: './nav-bar.css',
 })
 export class NavBar {
+  private _router = inject(Router);
+  private _securityApi = inject(SecurityApi);
+  protected isLoggedIn: boolean = false;
+  // protected role: string | null;
+
+
+   ngOnInit(): void {
+    this._router.events.subscribe({
+      next: event => {
+        if (event instanceof NavigationStart) {
+          if (this._securityApi.getToken() !== null) {
+            // this.role = this._securityApi.getRole();
+            this.isLoggedIn = true;
+          }
+        }
+      }
+    });
+  }
+  logout(): void {
+    this.isLoggedIn = false;
+    this._securityApi.logout();
+  }
   
 }

@@ -3,7 +3,8 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthRequest } from '../../models/auth-request';
 import { AuthResponse } from '../../models/auth-response';
-import { SecurirtyApi } from '../../services/securirty-api';
+import { SecurityApi } from '../../services/securirty-api';
+
 
 @Component({
   selector: 'app-login',
@@ -12,7 +13,7 @@ import { SecurirtyApi } from '../../services/securirty-api';
   styleUrl: './login.css',
 })
 export class Login {
-  private _securityApi = inject(SecurirtyApi);
+  private _securityApi = inject(SecurityApi);
   private _router = inject(Router);
   private _activatedRoute = inject(ActivatedRoute);
 
@@ -22,7 +23,7 @@ export class Login {
   private _returnUrl: string = '';
   public isLoggedIn = false;
 
-   constructor(private securityApi: SecurirtyApi, private router: Router) {}
+   constructor(private securityApi: SecurityApi, private router: Router) {}
 
   ngOnInit(): void {
     this._returnUrl = this._activatedRoute.snapshot.queryParams['returnUrl'] || '/products';
@@ -32,15 +33,14 @@ export class Login {
     if (form.valid) {
       this.securityApi.login(this.user).subscribe({
         next: (res: AuthResponse) => {
-          // ✅ Successful login
-          console.log('Login success:', res);
+   
 
           // Store necessary data in localStorage
           localStorage.setItem('userEmail', this.user.email);
           localStorage.setItem('userRole', res.user.role);
           localStorage.setItem('token', res.token);
         
-          this.isLoggedIn = true;
+         
           this.router.navigate(['']); // redirect after login
         },
         error: () => {

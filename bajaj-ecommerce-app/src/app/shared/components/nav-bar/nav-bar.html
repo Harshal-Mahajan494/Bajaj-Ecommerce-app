@@ -28,18 +28,24 @@
           </li>
 
 
+          @if(isLoggedIn===true){
           <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/login']" routerLinkActive="active">Sing In</a>
+            <a class="nav-link" [routerLink]="['/auth/login']" routerLinkActive="active" (click)="logout()">Logout</a>
+          </li>
+          }@else{
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/auth/login']" routerLinkActive="active">Login</a>
+          </li>
+          }
+
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/products/register-event']" routerLinkActive="active">Sing Up</a>
           </li>
 
-
           <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/login']" routerLinkActive="active">Sing out</a>
+            <a class=" nav-link" [routerLink]="['/cart']" routerLinkActive="active">Cart</a>
           </li>
 
-          <li class="nav-item">
-            <a class="nav-link" href="#">Sing Up</a>
-          </li>
 
         </ul>
       </div>
