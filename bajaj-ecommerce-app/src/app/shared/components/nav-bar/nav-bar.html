@@ -27,6 +27,10 @@
             <a class="nav-link" [routerLink]="['/categories']" routerLinkActive="active">Category</a>
           </li>
 
+          <li class="nav-item">
+            <a class=" nav-link" [routerLink]="['/cart']" routerLinkActive="active">Cart</a>
+          </li>
+
 
           @if(isLoggedIn===true){
           <li class="nav-item">
@@ -42,9 +46,7 @@
             <a class="nav-link" [routerLink]="['/products/register-event']" routerLinkActive="active">Sing Up</a>
           </li>
 
-          <li class="nav-item">
-            <a class=" nav-link" [routerLink]="['/cart']" routerLinkActive="active">Cart</a>
-          </li>
+
 
 
         </ul>

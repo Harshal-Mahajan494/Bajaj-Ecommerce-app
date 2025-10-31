@@ -5,6 +5,7 @@ import { EpHome } from './features/home/ep-home/ep-home';
 import { Login } from "./features/security/components/login/login";
 import { SecurityRoutes } from './features/security/security.routes';
 import { authGuard } from './core/guards/auth-guard';
+import { Payment } from './features/payment/payment/payment';
 
 export const routes: Routes = [
   {
@@ -39,6 +40,11 @@ export const routes: Routes = [
     loadComponent: () => import('./features/cart/components/cart/cart').then(m => m.CartComponent), 
     title: 'Cart'
    },
+     {
+    path: 'payment',
+    component: Payment,
+    title: 'payment'
+  },
   {
     path: "auth",
     children: [

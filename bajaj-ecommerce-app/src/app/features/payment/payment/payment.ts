@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-
+import { Component ,inject} from '@angular/core';
+import { Router } from '@angular/router';
 @Component({
   selector: 'bajaj-payment',
   imports: [],
@@ -7,5 +7,10 @@ import { Component } from '@angular/core';
   styleUrl: './payment.css',
 })
 export class Payment {
-
+  private router = inject(Router);
+ confirmPayment() {
+    
+  alert("payment done Sucessfully");  
+  this.router.navigate(['/products']);
+}
 }

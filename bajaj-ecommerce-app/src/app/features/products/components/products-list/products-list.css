@@ -1,147 +1,151 @@
-/* 🌟 General Page Styling */
-.container {
-  padding-top: 30px;
-  padding-bottom: 40px;
-  background: linear-gradient(135deg, #f7f9fc, #eef2f3);
-  min-height: 100vh;
-}
+  body {
+      background: #f8f9fa;
+      font-family: "Poppins", sans-serif;
+    }
 
-h1 {
-  font-weight: 700;
-  color: #212529;
-  letter-spacing: 1px;
-  margin-bottom: 30px;
-}
+    h1 {
+      text-align: center;
+      margin-top: 30px;
+      margin-bottom: 40px;
+      color: #1a1a1a;
+      font-weight: 700;
+    }
 
-/* 🛒 Product Card Styling */
-.card {
-  border: none;
-  border-radius: 18px;
-  transition: all 0.4s ease;
-  overflow: hidden;
-}
+    /* Card styling */
+    .card {
+      border: none;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border-radius: 15px;
+      overflow: hidden;
+    }
 
-.card:hover {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.18);
-}
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
 
-/* 🖼️ Product Image */
-.card-img-top {
-  object-fit: cover;
-  border-top-left-radius: 18px;
-  border-top-right-radius: 18px;
-  transition: all 0.3s ease;
-}
+    .card-img-top {
+      height: 260px;
+      object-fit: cover;
+      border-bottom: 2px solid #f1f1f1;
+    }
 
-.card:hover .card-img-top {
-  filter: brightness(1.05);
-  transform: scale(1.05);
-}
+    .card-body {
+      text-align: center;
+    }
 
-/* 📝 Product Info */
-.card-body {
-  text-align: center;
-  padding: 20px;
-}
+    .card-title {
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
 
-.card-title {
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: #333;
-  margin-bottom: 10px;
-}
+    .card-text {
+      color: #666;
+      font-size: 0.95rem;
+      min-height: 60px;
+    }
 
-.card-text {
-  color: #6c757d;
-  font-size: 0.95rem;
-  height: 60px;
-  width: 80px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
+    /* 🌈 Interactive Button */
+    .btn-custom {
+      background: linear-gradient(135deg, #007bff, #00c6ff);
+      border: none;
+      color: white;
+      border-radius: 30px;
+      padding: 10px 22px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+    }
 
-/* ✨ Buttons */
-.btn {
-  border-radius: 30px;
-  font-weight: 500;
-  padding: 8px 18px;
-  transition: all 0.3s ease;
-}
+    .btn-custom:hover {
+      transform: scale(1.05);
+      background: linear-gradient(135deg, #0056b3, #008cff);
+      box-shadow: 0 6px 18px rgba(0, 123, 255, 0.45);
+    }
 
-.btn-success {
-  background: linear-gradient(135deg, #28a745, #218838);
-  border: none;
-}
+    .btn-custom:active {
+      transform: scale(0.97);
+    }
 
-.btn-success:hover {
-  background: linear-gradient(135deg, #218838, #1e7e34);
-  transform: scale(1.05);
-}
+    /* Pagination styling */
+    .pagination {
+      justify-content: center;
+      margin-top: 40px;
+    }
 
-.btn-dark {
-  background: linear-gradient(135deg, #343a40, #212529);
-  border: none;
-}
+    /* 📱 Mobile Responsive Design */
+    @media (max-width: 768px) {
+      .container {
+        padding-top: 20px;
+        padding-bottom: 30px;
+      }
 
-.btn-dark:hover {
-  background: linear-gradient(135deg, #212529, #000);
-  transform: scale(1.05);
-}
+      h1 {
+        font-size: 1.6rem;
+        text-align: center;
+        margin-bottom: 20px;
+      }
 
-/* 🔍 Modal Styling */
-.modal-content {
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
-}
+      .card {
+        margin-bottom: 20px;
+      }
 
-.modal-header {
-  background: linear-gradient(135deg, #28a745, #20c997);
-  color: white;
-}
+      .card-body {
+        padding: 15px;
+      }
 
-.modal-body img {
-  border-radius: 12px;
-  max-height: 350px;
-  object-fit: cover;
-}
+      .card-title {
+        font-size: 1rem;
+      }
 
-.modal-footer .btn-success {
-  background: linear-gradient(135deg, #198754, #157347);
-}
+      .card-text {
+        font-size: 0.9rem;
+        height: auto;
+        width: 100%;
+      }
 
-/* 📄 Pagination Styling */
-.pagination .page-item .page-link {
-  border-radius: 50%;
-  margin: 0 5px;
-  color: #000;
-  border: none;
-  width: 38px;
-  height: 38px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-}
+      .card-img-top {
+        height: 220px;
+      }
 
-.pagination .page-item.active .page-link {
-  background-color: #198754;
-  color: #fff;
-  font-weight: bold;
-  box-shadow: 0 0 8px rgba(25, 135, 84, 0.4);
-}
+      .btn-custom {
+        padding: 8px 18px;
+        font-size: 0.9rem;
+      }
 
-.pagination .page-link:hover {
-  background-color: #198754;
-  color: white;
-  transform: scale(1.05);
-}
+      .pagination {
+        justify-content: center;
+        flex-wrap: wrap;
+      }
 
-/* ❌ No Products */
-h4 {
-  color: #dc3545;
-  margin-top: 50px;
-  text-align: center;
-  font-weight: 600;
-}
+      .pagination .page-item .page-link {
+        width: 32px;
+        height: 32px;
+        font-size: 0.9rem;
+      }
+
+      .modal-body img {
+        max-height: 250px;
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 1.4rem;
+      }
+
+      .card-img-top {
+        height: 180px;
+      }
+
+      .btn-custom {
+        width: 100%;
+        margin-bottom: 8px;
+      }
+
+      .card-body {
+        text-align: left;
+      }
+    }

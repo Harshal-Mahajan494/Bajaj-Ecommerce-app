@@ -12,9 +12,10 @@ import { CartItem, CartService } from '../../services/cart';
 })
 export class CartComponent implements OnInit {
   private cart = inject(CartService);
+  private router = inject(Router);
 
-   private router = inject(Router);
   items: CartItem[] = [];
+  showLoginPopup = false; 
 
   ngOnInit(): void {
     this.cart.cart$.subscribe(items => this.items = items);
@@ -36,16 +37,27 @@ export class CartComponent implements OnInit {
   getTotal() {
     return this.cart.getTotal();
   }
+
   checkout() {
     const token = localStorage.getItem('token');
     if (token) {
-      // 👉 If user is logged in, navigate to payment page
-      alert("Payment done successful");
-      this,this.router.navigate(['']);
+      this.router.navigate(['/payment']);
+    
     } else {
-      // 👉 Otherwise, go to login first
-      alert('Please login to continue checkout!');
-      this.router.navigate(['/auth/login']);
+
+      this.showLoginPopup = true;
+       
     }
   }
+
+ 
+  closePopup() {
+    this.showLoginPopup = false;
+  }
+
+  goToLogin() {
+    this.showLoginPopup = false;
+    this.router.navigate(['/auth/login'], { queryParams: { redirect: 'cart' } });
+  }
+  
 }

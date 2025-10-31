@@ -16,7 +16,7 @@
         <tr *ngFor="let it of items">
           <td>
             <div class="d-flex align-items-center">
-              <img *ngIf="it.images?.length" [src]="" style="width:60px;height:60px;object-fit:cover;margin-right:8px">
+              <img *ngIf="it.images?.length" [src]="it.images" style="width:60px;height:60px;object-fit:cover;margin-right:8px">
               <div>{{it.name}}</div>
             </div>
           </td>
@@ -44,4 +44,14 @@
   <ng-template #empty>
     <div class="alert alert-info">Your cart is empty!</div>
   </ng-template>
+</div>
+
+<!-- 🔹 Login Required Popup -->
+<div class="login-popup" *ngIf="showLoginPopup">
+  <div class="popup-content">
+    <h5>Login Required</h5>
+    <p>Please login to continue checkout!</p>
+    <button class="btn btn-primary" (click)="goToLogin()">Login Now</button>
+    <button class="btn btn-secondary" (click)="closePopup()">Close</button>
+  </div>
 </div>

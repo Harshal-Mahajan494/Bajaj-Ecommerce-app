@@ -1,18 +1,18 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthRequest } from '../../models/auth-request';
 import { AuthResponse } from '../../models/auth-response';
 import { SecurityApi } from '../../services/securirty-api';
 
-
 @Component({
   selector: 'app-login',
+  standalone: true,
   imports: [FormsModule],
   templateUrl: './login.html',
-  styleUrl: './login.css',
+  styleUrls: ['./login.css'],
 })
-export class Login {
+export class Login implements OnInit {
   private _securityApi = inject(SecurityApi);
   private _router = inject(Router);
   private _activatedRoute = inject(ActivatedRoute);
@@ -21,32 +21,35 @@ export class Login {
   protected authResponse?: AuthResponse;
   protected authErrorMessage: string = '';
   private _returnUrl: string = '';
-  public isLoggedIn = false;
-
-   constructor(private securityApi: SecurityApi, private router: Router) {}
 
   ngOnInit(): void {
-    this._returnUrl = this._activatedRoute.snapshot.queryParams['returnUrl'] || '/products';
+    // ✅ Get redirect/return URL
+    this._returnUrl =
+      this._activatedRoute.snapshot.queryParams['returnUrl'] ||
+      this._activatedRoute.snapshot.queryParams['redirect'] ||
+      '/products';
   }
 
- onSubmit(form: NgForm) {
+  onSubmit(form: NgForm) {
     if (form.valid) {
-      this.securityApi.login(this.user).subscribe({
+      this._securityApi.login(this.user).subscribe({
         next: (res: AuthResponse) => {
-   
-
-          // Store necessary data in localStorage
+          // ✅ Save login details
           localStorage.setItem('userEmail', this.user.email);
           localStorage.setItem('userRole', res.user.role);
           localStorage.setItem('token', res.token);
-        
-         
-          this.router.navigate(['']); // redirect after login
+
+          // ✅ Navigate back to intended route
+          if (this._returnUrl === 'cart' || this._returnUrl === '/cart') {
+            this._router.navigate(['/cart']);
+          } else {
+            this._router.navigate([this._returnUrl]);
+          }
         },
         error: () => {
-          console.error('Error during authentication:');
+          console.error('Error during authentication');
           this.authErrorMessage = 'Invalid email or password.';
-        }
+        },
       });
     }
   }
