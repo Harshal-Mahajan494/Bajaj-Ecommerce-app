@@ -39,7 +39,7 @@ export class RegisterUser {
       email: this.registerForm.value.email,
       password: this.registerForm.value.password,
       phone: this.registerForm.value.phone,
-      role: this.registerForm.value.role,
+      role: this.registerForm.value.role?.toLowerCase(),
     };
 
     console.log('➡ Sending registration data:', userData);
