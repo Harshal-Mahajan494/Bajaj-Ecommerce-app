@@ -55,6 +55,11 @@ export const routes: Routes = [
   },
 
     {
+    path: 'orders',
+    component:OrdersComponent,
+    title: 'orders'
+  },
+    {
     path: 'payment',
     component:Payment,
     title: 'payment'

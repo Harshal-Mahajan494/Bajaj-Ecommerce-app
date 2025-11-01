@@ -30,7 +30,7 @@ export class ProductsList implements OnInit, OnDestroy {
   protected totalPages: number = 1;
 
     addToCart(p: any) {
-    this.cart.addToCart(p);
+    this.cart.addItem(p);
     // user feedback — toast/alert
     alert(`${p.name} added to cart`);
   }

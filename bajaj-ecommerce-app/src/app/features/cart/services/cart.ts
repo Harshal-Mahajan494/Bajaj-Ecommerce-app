@@ -1,3 +1,4 @@
+// cart.service.ts
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
@@ -5,53 +6,35 @@ export interface CartItem {
   _id: string;
   name: string;
   price: number;
-  images?: string[];
   quantity: number;
+  images?: string;
 }
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class CartService {
+  private cartKey = 'cart';
   private items: CartItem[] = [];
-  private items$ = new BehaviorSubject<CartItem[]>([]);
-
-  readonly cart$ = this.items$.asObservable();
+  private cartSubject = new BehaviorSubject<CartItem[]>([]);
+  cart$ = this.cartSubject.asObservable();
 
   constructor() {
-    this.load();
+    const stored = localStorage.getItem(this.cartKey);
+    if (stored) {
+      this.items = JSON.parse(stored);
+      this.cartSubject.next(this.items);
+    }
   }
 
   private save() {
-    localStorage.setItem('cart', JSON.stringify(this.items));
-    this.items$.next([...this.items]);
+    localStorage.setItem(this.cartKey, JSON.stringify(this.items));
+    this.cartSubject.next(this.items);
   }
 
-  private load() {
-    const raw = localStorage.getItem('cart');
-    if (raw) {
-      try {
-        this.items = JSON.parse(raw);
-      } catch {
-        this.items = [];
-      }
-    }
-    this.items$.next([...this.items]);
-  }
-
-  addToCart(product: any) {
-    const id = product._id ?? product.id ?? product.sku ?? product.name;
-    const existing = this.items.find(i => i._id === id);
+  addItem(item: CartItem) {
+    const existing = this.items.find(i => i._id === item._id);
     if (existing) {
-      existing.quantity += 1;
+      existing.quantity += item.quantity;
     } else {
-      const item: CartItem = {
-        _id: id,
-        name: product.name,
-        price: product.price ?? product.cost ?? 0,
-        images: product.images,
-        quantity: 1
-      };
       this.items.push(item);
     }
     this.save();
@@ -63,9 +46,8 @@ export class CartService {
   }
 
   updateQuantity(id: string, qty: number) {
-    const it = this.items.find(i => i._id === id);
-    if (!it) return;
-    it.quantity = Math.max(1, Math.floor(qty));
+    const item = this.items.find(i => i._id === id);
+    if (item) item.quantity = qty;
     this.save();
   }
 
@@ -75,6 +57,10 @@ export class CartService {
   }
 
   getTotal() {
-    return this.items.reduce((s, i) => s + i.price * i.quantity, 0);
+    return this.items.reduce((t, i) => t + i.price * i.quantity, 0);
+  }
+
+  getItems() {
+    return this.items;
   }
 }

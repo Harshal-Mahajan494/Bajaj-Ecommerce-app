@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Order } from '../modelss/order';
+import { OrderService } from '../../orders/servicess/order';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-orders',
@@ -10,24 +11,30 @@ import { Order } from '../modelss/order';
   styleUrls: ['./components.css']
 })
 export class OrdersComponent implements OnInit {
-  orders: Order[] = [];
+  orders: any[] = [];
+  today = new Date();
+  private router = inject(Router);
 
-  ngOnInit() {
-    // ✅ Load orders directly from localStorage instead of API
-    const raw = localStorage.getItem('orders');
-   
+  constructor(private orderService: OrderService) {}
 
-    if (raw) {
-      try {
-        this.orders = JSON.parse(raw);
-         console.log();
-      } catch (error) {
-        console.error('Error parsing local orders', error);
-        this.orders = [];
-      }
-    } else {
-      console.log('No orders found in localStorage');
-      this.orders = [];
-    }
+  ngOnInit(): void {
+    this.orders = this.orderService.getOrders();
+    this.calculateTotals();
+  }
+
+  // ✅ Calculate total for each order
+  calculateTotals(): void {
+    this.orders = this.orders.map(order => {
+      const total = order.items.reduce(
+        (sum: number, item: any) => sum + item.price * item.quantity,
+        0
+      );
+      return { ...order, total };
+    });
+  }
+
+  // ✅ Navigate to payment
+  payment(): void {
+    this.router.navigate(['/payment']);
   }
 }
