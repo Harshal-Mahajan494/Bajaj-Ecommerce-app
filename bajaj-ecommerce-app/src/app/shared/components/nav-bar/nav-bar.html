@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Bajaj</a>
+    <a class="navbar-brand" href="#" style="color:white">Bajaj</a>
 
     <!-- 🔹 Hamburger Button -->
     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
@@ -18,40 +18,44 @@
       <div class="offcanvas-body">
         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
+            <a class="nav-link active" aria-current="page" href="#" style="color:white">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/products']" routerLinkActive="active">Product</a>
+            <a class="nav-link" [routerLink]="['/products']" routerLinkActive="active" style="color:white">Product</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/categories']" routerLinkActive="active">Category</a>
+            <a class="nav-link" [routerLink]="['/categories']" routerLinkActive="active" style="color:white">Category</a>
+          </li>
+
+            <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/orders']" routerLinkActive="active" style="color:white">Order</a>
           </li>
 
           @if(isAdmin==true){
           <li class="nav-item">
-            <a class="nav-link">Add Cart</a>
+            <a class="nav-link" style="color:white">Add Cart</a>
           </li>
           }
 
 
           <li class="nav-item">
-            <a class=" nav-link" [routerLink]="['/cart']" routerLinkActive="active">Cart</a>
+            <a class=" nav-link" [routerLink]="['/cart']" routerLinkActive="active" style="color:white">Cart</a>
           </li>
 
 
 
           @if(isLoggedIn===true){
           <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/auth/login']" routerLinkActive="active" (click)="logout()">Logout</a>
+            <a class="nav-link" [routerLink]="['/auth/login']" routerLinkActive="active" (click)="logout()" style="color:white">Logout</a>
           </li>
           }@else{
           <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/auth/login']" routerLinkActive="active">Login</a>
+            <a class="nav-link" [routerLink]="['/auth/login']" routerLinkActive="active" style="color:white">Login</a>
           </li>
           }
 
           <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/products/register-event']" routerLinkActive="active">Sing Up</a>
+            <a class="nav-link" [routerLink]="['/products/register-event']" routerLinkActive="active" style="color:white">Sing Up</a>
           </li>
         </ul>
       </div>

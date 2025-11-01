@@ -6,6 +6,9 @@ import { Login } from "./features/security/components/login/login";
 import { SecurityRoutes } from './features/security/security.routes';
 import { authGuard } from './core/guards/auth-guard';
 import { Payment } from './features/payment/payment/payment';
+import { OrderService } from './features/orders/servicess/order';
+import { OrdersComponent } from './features/orders/components/components';
+import { CartComponent } from './features/cart/components/cart/cart';
 
 export const routes: Routes = [
   {
@@ -36,20 +39,25 @@ export const routes: Routes = [
     component: CategoriesList,
     title: 'Categories'
   },
-  { path: 'cart', 
-    loadComponent: () => import('./features/cart/components/cart/cart').then(m => m.CartComponent), 
-    title: 'Cart'
-   },
-     {
-    path: 'payment',
-    component: Payment,
-    title: 'payment'
-  },
+
+
   {
     path: "auth",
     children: [
       ...SecurityRoutes
     ]
   },
-   
+
+  {
+    path: 'cart',
+    component: CartComponent,
+    title: 'cart'
+  },
+
+    {
+    path: 'payment',
+    component:Payment,
+    title: 'payment'
+  },
+  
 ]
